@@ -1,22 +1,24 @@
-const maincontainer = document.querySelector('#plant-container');
+import Cookies from "./node_modules/js-cookie/dist/js.cookie.mjs"
+import "./modules/cart.js";
 
 
-
-const baseUrl ='https://plantstore-efd58-default-rtdb.europe-west1.firebasedatabase.app/';
-
-async function fetchingProducts(){
+export async function fetchingProducts() {
+    const baseUrl = 'https://plantstore-efd58-default-rtdb.europe-west1.firebasedatabase.app/';
     const url = baseUrl + 'productinfo.json';
     const response = await fetch(url);
     const data = await response.json();
-    displayProduct(data)
+    // console.log(data)
+    displayProduct(data);
+    return data
 }
 
 fetchingProducts();
 
-function displayProduct(data){
+function displayProduct(data) {
 
+    const maincontainer = document.querySelector('#plant-container');
 
-    for(let i=0; i< data.length; i++){
+    for (let i = 0; i < data.length; i++) {
         // Create elements for product info
         const smallDivForProduct = document.createElement('div');
         smallDivForProduct.classList.add('smalldiv');
@@ -31,6 +33,23 @@ function displayProduct(data){
         addToCartButton.addEventListener('click', () => {
             // Add the product to the cart
             console.log('Adding product to cart:', data[i].name);
+                let plantName= data[i].name;
+                // let obj ={[data[i].name]: { price: "100", saldo: 99}};
+                // console.log(obj,"?????");
+                let array =JSON.parse(Cookies.get("cart"))
+                //array.push(data[i].name)
+                
+                
+                
+                // let j = array.indexOf("Semira");  // delete array
+                // array.splice( j , 1);
+                // console.log(array,"deleted");  
+
+                Cookies.set("cart",  JSON.stringify(array), 34567897654); 
+
+             console.log(JSON.parse(Cookies.get("cart")));
+         
+
         });
         // Add the product info and button to the page
 
