@@ -1,3 +1,7 @@
+const maincontainer = document.querySelector('#plant-container');
+
+
+
 const baseUrl ='https://plantstore-efd58-default-rtdb.europe-west1.firebasedatabase.app/';
 
 async function fetchingProducts(){
@@ -10,8 +14,12 @@ async function fetchingProducts(){
 fetchingProducts();
 
 function displayProduct(data){
+
+
     for(let i=0; i< data.length; i++){
         // Create elements for product info
+        const smallDivForProduct = document.createElement('div');
+        smallDivForProduct.classList.add('smalldiv');
         const nameForProduct = document.createElement('h1');
         const priceForProduct = document.createElement('h3');
         const showImage = document.createElement('img');
@@ -25,11 +33,13 @@ function displayProduct(data){
             console.log('Adding product to cart:', data[i].name);
         });
         // Add the product info and button to the page
-        document.body.appendChild(nameForProduct);
-        document.body.appendChild(priceForProduct);
-        document.body.appendChild(showImage);
-        document.body.appendChild(leftInStorage);
-        document.body.appendChild(addToCartButton);
+
+        maincontainer.appendChild(smallDivForProduct)
+        smallDivForProduct.appendChild(nameForProduct);
+        smallDivForProduct.appendChild(priceForProduct);
+        smallDivForProduct.appendChild(showImage);
+        smallDivForProduct.appendChild(leftInStorage);
+        smallDivForProduct.appendChild(addToCartButton);
         // Set the content of the product info elements
         nameForProduct.innerText = data[i].name;
         priceForProduct.innerText = data[i].price + ' kr';
