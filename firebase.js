@@ -6,7 +6,11 @@ export async function fetchingProducts() {
     const url = baseUrl + 'productinfo.json';
     const response = await fetch(url);
     const data = await response.json();
-    // console.log(data)
+
+    localStorage.setItem("dataOfProducts",JSON.stringify(data) )
+    if(!localStorage.getItem("cart")){
+        localStorage.setItem("cart", "[]");
+    }
     displayProduct(data);
 }
 
@@ -30,7 +34,7 @@ function displayProduct(data) {
         // Attach a click event handler to the button
         addToCartButton.addEventListener('click', () => {
             // Add the product to the cart
-            console.log('Adding product to cart:', data[i].name);
+            console.log('Adding product to cart:', data[i]);
 
         });
         // Add the product info and button to the page
