@@ -1,5 +1,4 @@
-import "./modules/cart.js";
-
+import { addToCart } from "./modules/cart.js";
 
 export async function fetchingProducts() {
     const baseUrl = 'https://plantstore-efd58-default-rtdb.europe-west1.firebasedatabase.app/';
@@ -8,10 +7,13 @@ export async function fetchingProducts() {
     const data = await response.json();
 
     localStorage.setItem("dataOfProducts",JSON.stringify(data) )
-    if(!localStorage.getItem("cart")){
-        localStorage.setItem("cart", "[]");
+    if(!localStorage.getItem("products")){
+        localStorage.setItem("products", "[]");
     }
     displayProduct(data);
+
+    
+
 }
 
 fetchingProducts();
@@ -35,7 +37,8 @@ function displayProduct(data) {
         addToCartButton.addEventListener('click', () => {
             // Add the product to the cart
             console.log('Adding product to cart:', data[i]);
-
+            addToCart(data[i]);
+            
         });
         // Add the product info and button to the page
 
