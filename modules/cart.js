@@ -1,4 +1,4 @@
-
+import anime from "../node_modules/animejs/lib/anime.es.js";
 
 export function getCartItems(){
     const cartItemString = localStorage.getItem('cartItems');
@@ -12,14 +12,22 @@ export function addToCart(data) {
         cartItems.push(data)
         localStorage.setItem('cartItems', JSON.stringify(cartItems))
         console.log( 'cartItems',cartItems)
-        const cartCount = document.getElementById('cart-count')
-        cartCount.innerText = cartItems.length
+        const cartCount = document.getElementById('cart-count');
+        const count = parseInt(cartCount.innerText || '1') + 1;
+        cartCount.innerText = count;
+        anime({
+            targets: cartCount,
+            scale: [1, 1.5, 1],
+            duration: 1000,
+            easing: 'easeInOutQuad'
+        });
+        
     }
     else {
         const cartItems = [data];
         localStorage.setItem('cartItems', JSON.stringify(cartItems))
         const cartCount = document.getElementById('cart-count')
-        cartCount.innerText = cartItems.length
+
         console.log('cartItemsInElse', cartItems);
     }
 }
