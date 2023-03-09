@@ -1,4 +1,8 @@
 import { getCartItems } from "./cart.js";
+import { baseUrl } from "../firebase.js";
+
+
+
 function renderSingleCartItem(cartItem){
     console.log(`renderOneCartItem`, cartItem);
     const div = document.querySelector("#checkoutContainer")
@@ -40,7 +44,6 @@ function renderCartItems(){
       );
 
     document.querySelector("#checkoutContainer").appendChild(clearCartButton);
-    purchaseBtn(cartItems);
 }
 
 renderCartItems();
@@ -60,15 +63,29 @@ function getTotal(){
   }
 getTotal();  
 
- async function purchaseBtn(cartItems){
-    console.log(cartItems);
-    const baseUrl = 'https://plantstore-efd58-default-rtdb.europe-west1.firebasedatabase.app/'; 
+ 
 
-    let object = {
-        method: 'GET',
-        
+async function purchaseBtnfunc(baseUrl){
+  let object = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
     }
+  }
+
+  const response = await fetch(baseUrl,object)
+  const cartItemsData = await response.json(); 
+  let currentStock = cartItemsData.saldo; 
+
+ const purchaseButton = document.querySelector("#purchase-btn")
+ purchaseButton.addEventListener('click', ()=>{
+  console.log(purchaseButton ,'hello')
+  console.log(currentStock)
+
+ })
 
 
-    // document.querySelector('#purchase-btn').addEventListener('click',  )
 }
+
+
+purchaseBtnfunc();

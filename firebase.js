@@ -1,7 +1,8 @@
 import { addToCart } from "./modules/cart.js";
 
+export const baseUrl = 'https://plantstore-efd58-default-rtdb.europe-west1.firebasedatabase.app/';
 export async function fetchingProducts() {
-    const baseUrl = 'https://plantstore-efd58-default-rtdb.europe-west1.firebasedatabase.app/';
+   
     const url = baseUrl + 'productinfo.json';
     const response = await fetch(url);
     const data = await response.json();
@@ -42,7 +43,7 @@ function displayProduct(data) {
         });
         // Add the product info and button to the page
 
-        maincontainer.appendChild(smallDivForProduct)
+       maincontainer.appendChild(smallDivForProduct)
         smallDivForProduct.appendChild(nameForProduct);
         smallDivForProduct.appendChild(priceForProduct);
         smallDivForProduct.appendChild(showImage);
@@ -55,4 +56,5 @@ function displayProduct(data) {
         leftInStorage.innerText = 'Left in storage = ' + data[i].saldo;
     }
 }
+
 
