@@ -30,7 +30,7 @@ function renderCartItems(){
     const totalElement = document.createElement('h3');
     totalElement.innerText = `Total Price: ${totalPrice} kr`;
     document.querySelector("#checkoutContainer").appendChild(totalElement);
-
+   
     const clearCartButton = document.createElement('button');
     clearCartButton.innerText = 'Clear Cart';
     clearCartButton.addEventListener('click', function clearCart(){
