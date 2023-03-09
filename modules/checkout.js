@@ -38,7 +38,9 @@ function renderCartItems(){
         checkoutContainer.appendChild(totalElement);
       }
       );
+
     document.querySelector("#checkoutContainer").appendChild(clearCartButton);
+    purchaseBtn(cartItems);
 }
 
 renderCartItems();
@@ -58,6 +60,15 @@ function getTotal(){
   }
 getTotal();  
 
-document.querySelector('#purchase-btn').addEventListener('click',() =>{
-    localStorage.clear();
-} )
+ async function purchaseBtn(cartItems){
+    console.log(cartItems);
+    const baseUrl = 'https://plantstore-efd58-default-rtdb.europe-west1.firebasedatabase.app/'; 
+
+    let object = {
+        method: 'GET',
+        
+    }
+
+
+    // document.querySelector('#purchase-btn').addEventListener('click',  )
+}
