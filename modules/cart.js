@@ -1,4 +1,5 @@
 import anime from "../node_modules/animejs/lib/anime.es.js";
+import { baseUrl } from "../firebase.js";
 
 export function getCartItems(){
     const cartItemString = localStorage.getItem('cartItems');
@@ -30,4 +31,27 @@ export function addToCart(data) {
 
         console.log('cartItemsInElse', cartItems);
     }
-}
+    const cartImage = document.getElementById('shoppingCartImage');
+
+    cartImage.addEventListener('mouseenter', () => {
+      anime({
+        targets: cartImage,
+        translateY: -50,
+        rotate: 360, // add rotate property
+        duration: 500,
+        easing: 'easeInOutQuad'
+      });
+    });
+    
+    cartImage.addEventListener('mouseleave', () => {
+      anime({
+        targets: cartImage,
+        translateY: 0,
+        rotate: 0, // reset rotation
+        duration: 500,
+        easing: 'easeInOutQuad'
+      });
+    });
+}    
+
+// console.log(purchaseBtnfunc());
