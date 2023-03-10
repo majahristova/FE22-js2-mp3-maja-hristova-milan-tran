@@ -34,13 +34,13 @@ function displayProduct(data) {
         // Create an "Add to cart" button element
         const addToCartButton = document.createElement('button');
         addToCartButton.innerText = 'Add to cart';
-        // Attach a click event handler to the button
         addToCartButton.addEventListener('click', () => {
             // Add the product to the cart
             console.log('Adding product to cart:', data[i]);
             addToCart(data[i]);
             
         });
+        // Attach a click event handler to the button
         // Add the product info and button to the page
 
        maincontainer.appendChild(smallDivForProduct)
