@@ -1,5 +1,5 @@
 import { getCartItems } from "./cart.js";
-import { baseUrl } from "../firebase.js";
+// import { baseUrl ,purchaseBtnfunc} from "../firebase.js";
 
 
 
@@ -65,27 +65,79 @@ getTotal();
 
  
 
-async function purchaseBtnfunc(baseUrl){
+// async function purchaseBtnfunc(baseUrl){
+  // let object = {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //   }
+  // }
+
+//   const response = await fetch(baseUrl,object)
+//   const cartItemsData = await response.json(); 
+//   let currentStock = cartItemsData.saldo; 
+
+//  const purchaseButton = document.querySelector("#purchase-btn")
+//  purchaseButton.addEventListener('click', ()=>{
+//   console.log(purchaseButton ,'hello')
+//   console.log(currentStock)
+
+//  })
+
+
+// }
+
+
+// purchaseBtnfunc();
+
+//  const baseUrl = 'https://plantstore-efd58-default-rtdb.europe-west1.firebasedatabase.app/';
+
+// async function fetchingProducts() {
+    
+//   const url = baseUrl + 'productinfo.json';
+//   const response = await fetch(url);
+//   const data = await response.json();
+  
+//   localStorage.setItem("dataOfProducts",JSON.stringify(data) )
+//   if(!localStorage.getItem("products")){
+//       localStorage.setItem("products", "[]");
+//   }    
+//   displayProduct(data);
+  
+// }  
+
+// fetchingProducts()
+
+const baseUrl = 'https://plantstore-efd58-default-rtdb.europe-west1.firebasedatabase.app/';
+async function fetchingProducts() {
+    
+  const url = baseUrl + 'productinfo.json';
+  const response = await fetch(url);
+  const data = await response.json();
+  console.log(data)
+  // localStorage.setItem("dataOfProducts",JSON.stringify(data) )
+  // if(!localStorage.getItem("products")){
+  //     localStorage.setItem("products", "[]");
+  // }    
+//  displayProduct(data);
+}    
+
+fetchingProducts()
+
+
+
+async function purchasebuttonFunc(){
   let object = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-    }
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
   }
 
-  const response = await fetch(baseUrl,object)
-  const cartItemsData = await response.json(); 
-  let currentStock = cartItemsData.saldo; 
+}
+const response = await fetch(baseUrl,object);
+const newDataForSaldo = await response.json();
 
- const purchaseButton = document.querySelector("#purchase-btn")
- purchaseButton.addEventListener('click', ()=>{
-  console.log(purchaseButton ,'hello')
-  console.log(currentStock)
 
- })
 
 
 }
-
-
-purchaseBtnfunc();
