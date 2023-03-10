@@ -30,4 +30,26 @@ export function addToCart(data) {
 
         console.log('cartItemsInElse', cartItems);
     }
-}
+    const cartImage = document.getElementById('shoppingCartImage');
+
+    cartImage.addEventListener('mouseenter', () => {
+      anime({
+        targets: cartImage,
+        translateY: -50,
+        rotate: 360, // add rotate property
+        duration: 500,
+        easing: 'easeInOutQuad'
+      });
+    });
+    
+    cartImage.addEventListener('mouseleave', () => {
+      anime({
+        targets: cartImage,
+        translateY: 0,
+        rotate: 0, // reset rotation
+        duration: 500,
+        easing: 'easeInOutQuad'
+      });
+    });
+}    
+
