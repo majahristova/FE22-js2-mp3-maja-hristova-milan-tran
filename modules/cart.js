@@ -1,5 +1,5 @@
 import anime from "../node_modules/animejs/lib/anime.es.js";
-import { baseUrl } from "../firebase.js";
+
 
 export function getCartItems(){
     const cartItemString = localStorage.getItem('cartItems');
