@@ -1,9 +1,9 @@
 import { getCartItems } from "./cart.js";
-import { updatePurchaseItems } from "../firebase.js";
+import { baseUrl } from "../firebase.js";
 
 
 
-function renderSingleCartItem(cartItem){
+export function renderSingleCartItem(cartItem){
     console.log(`renderOneCartItem`, cartItem);
     const div = document.querySelector("#checkoutContainer")
     const nameForProduct = document.createElement('h1');
@@ -13,8 +13,6 @@ function renderSingleCartItem(cartItem){
     const priceForProduct = document.createElement('h3');
     div.append(priceForProduct);
     priceForProduct.innerText = cartItem.price +'kr';
-
-   
 
 }
 
@@ -70,75 +68,6 @@ getTotal();
 
  
 
-// async function purchaseBtnfunc(baseUrl){
-  // let object = {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //   }
-  // }
-
-//   const response = await fetch(baseUrl,object)
-//   const cartItemsData = await response.json(); 
-//   let currentStock = cartItemsData.saldo; 
-
-
-//   console.log(purchaseButton ,'hello')
-//   console.log(currentStock)
-
-//  })
-
-
-// }
-
-
-// purchaseBtnfunc();
-
-//  const baseUrl = 'https://plantstore-efd58-default-rtdb.europe-west1.firebasedatabase.app/';
-
-// async function fetchingProducts() {
-    
-//   const url = baseUrl + 'productinfo.json';
-//   const response = await fetch(url);
-//   const data = await response.json();
-  
-//   localStorage.setItem("dataOfProducts",JSON.stringify(data) )
-//   if(!localStorage.getItem("products")){
-//       localStorage.setItem("products", "[]");
-//   }    
-//   displayProduct(data);
-  
-// }  
-
-// fetchingProducts()
-
-// const baseUrl = 'https://plantstore-efd58-default-rtdb.europe-west1.firebasedatabase.app/';
-// async function fetchingProducts(cartItem) {
-  
-    
-//   const url = baseUrl + 'productinfo.json';
-//   const response = await fetch(url);
-//   const data = await response.json();
-//   console.log(data)
-//   for(let i=0; i<data.length; i++){
-
-//     let currentInStock = data[i].saldo ;
-//     console.log(currentInStock)
-//     let amount = cartItem -1
-//     const resultInStock = currentInStock -  amount
-  
-//     console.log(resultInStock)
-//   }
-
-
-
-
-  // localStorage.setItem("dataOfProducts",JSON.stringify(data) )
-  // if(!localStorage.getItem("products")){
-  //     localStorage.setItem("products", "[]");
-  // }    
-//  displayProduct(data);
-
 
 const purchaseButton = document.querySelector("#purchase-btn")
 purchaseButton.addEventListener('click',onPurchaseButtonClicked)
@@ -150,12 +79,62 @@ async function onPurchaseButtonClicked(){
   
  if(cartItemString ){
     const cartItems = JSON.parse(cartItemString)
-    const newdata = await updatePurchaseItems(cartItems);
-    console.log(newdata)
+    for(let i=0; i<cartItems.length; i++){
+      const news = cartItems[i]
+      const newdata = await updatePurchaseItems(news);
 
+    }
  }
- 
 
+ setTimeout(() => {
   alert('it has been purchased ');
+  localStorage.removeItem('cartItems');
+  location.href ="./index.html";
+
+
+}, 4000 )
+
 
 }
+
+
+async function updatePurchaseItems(news) {
+  try {
+      
+          const firstItem = {
+           ...news,
+            saldo: news.saldo,
+          }
+      
+      const newUrl = `${baseUrl}productinfo/${firstItem.id}.json`;
+          const response = await fetch(newUrl);
+          const dataInStock = await response.json();
+          const currentInStock = dataInStock.saldo;
+          const amount = 1
+          const resultInStock = currentInStock - amount;
+          console.log(currentInStock)
+          console.log(resultInStock)
+
+
+          if(currentInStock < 0){
+            alert('there is no products')
+          }
+
+          let object ={
+            method: 'PATCH',
+                body: JSON.stringify({saldo: resultInStock}),
+                headers: {
+                    'Content-Type': 'application/json'
+          }
+        }
+            await fetch(newUrl,object)
+
+  }catch (error) {
+      console.log(error)
+  }}
+
+
+
+
+
+

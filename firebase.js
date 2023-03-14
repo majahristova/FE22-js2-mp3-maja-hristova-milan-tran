@@ -16,34 +16,6 @@ export async function fetchingProducts() {
 }
 
 
-export async function updatePurchaseItems(cartItems) {
-
-    try {
-        const firstItem = {
-            ...cartItems[0],
-            saldo:1337 ,
-    
-        }
-        const newUrl = `${baseUrl}productinfo/${firstItem.id}.json`;
-        let object = {
-            method: 'PATCH',
-            body: JSON.stringify(firstItem),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-        console.log(firstItem)
-        const response = await fetch(newUrl, object);
-        const newDataForSaldo = await response.json();
-        console.log(newDataForSaldo)
 
 
 
-        // for(let i=0; i<newDataForSaldo.length; i++){
-
-        //     console.log(newDataForSaldo[i].saldo)
-        // }
-    } catch (error) {
-        console.log(error)
-    }
-}

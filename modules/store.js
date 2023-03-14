@@ -1,12 +1,10 @@
 import { fetchingProducts } from "../firebase.js";
-
-fetchingProducts();
-
+import { addToCart } from "./cart.js";
 
 async function initiateStore(){
-
 try {
   const data = await fetchingProducts();
+  console.log(data)
  displayProduct(data)
     
 } catch (error) {
@@ -19,7 +17,7 @@ function displayProduct(data) {
 
     const maincontainer = document.querySelector('#plant-container');
 
-    for (let i = 0; i < data.length; i++) {
+    for (let i= 0; i<data.length; i++) {
         // Create elements for product info
         const smallDivForProduct = document.createElement('div');
         smallDivForProduct.classList.add('smalldiv');
@@ -50,6 +48,8 @@ function displayProduct(data) {
         priceForProduct.innerText = data[i].price + ' kr';
         showImage.src = data[i].img;
         leftInStorage.innerText = 'Left in storage = ' + data[i].saldo;
+          
+   
     }    
 }    
 

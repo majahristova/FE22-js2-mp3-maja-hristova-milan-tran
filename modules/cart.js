@@ -6,7 +6,7 @@ export function getCartItems(){
     return  cartItemString? JSON.parse(cartItemString):null; 
 }
 
-export function addToCart(data) {
+ export function addToCart(data) {
     const cartItemsString = localStorage.getItem('cartItems')
     if (cartItemsString) {
         const cartItems = JSON.parse(cartItemsString);
